@@ -15,8 +15,8 @@ namespace BenchmarkDemo
         {
             var sw = new Stopwatch();
             sw.Start();
-           // DoForEach().Wait();
-            DoWaitAll().Wait();
+            DoSequentialWork_ForEach().Wait();
+            DoParallelWork_WhenAll().Wait();
 
             sw.Stop();
             Console.WriteLine($"Time Lapsed {sw.ElapsedMilliseconds}ms");
@@ -26,7 +26,7 @@ namespace BenchmarkDemo
         }
 
         // sequentially invoke the methods, waiting for each to finish before starting the next
-        async static Task DoForEach()
+        async static Task DoSequentialWork_ForEach()
         {
             var vms = new List<ViewModel>();
             foreach (var dto in Getdtos())
@@ -38,7 +38,7 @@ namespace BenchmarkDemo
 
 
 
-        async static Task<IEnumerable<ViewModel>> DoWaitAll()
+        async static Task<IEnumerable<ViewModel>> DoParallelWork_WhenAll()
         {
             var vms = new List<Task<ViewModel>>();
             foreach (var dto in Getdtos())
